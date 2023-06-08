@@ -87,12 +87,12 @@ function VerifyPage({ isVerified}) {
           window.location.href = '/success';
       }else{
 
-        setError(response.data.error)
+        setError( "Verification Error :" + response.data.error)
         console.log(error,"error")
       }
     }
   }catch(err){
-    setError(err.response.data.error)
+    setError("Verification Error :" + err.response.data.error)
   }
   };
 
