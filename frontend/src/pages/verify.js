@@ -1,13 +1,12 @@
-import { useState, useRef,createContext } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
 import '../App.css';
 
-function VerifyPage({setIsVerified, isVerified}) {
+function VerifyPage({ isVerified}) {
 
   
   const [code, setCode] = useState(new Array(6).fill(''));
   const [invalid, setInvalid] = useState(new Array(6).fill(false));
-  const [success, setSuccess] = useState(false);
   const inputsRef = useRef([]);
   const [error, setError] = useState('');
 
@@ -39,9 +38,9 @@ function VerifyPage({setIsVerified, isVerified}) {
     setInvalid(newInvalid);
     console.log(invalid[index])
     if (event.key === "Backspace" || event.key === "Delete") {
-      if (index != 0) {
+      if (index !== 0) {
         setTimeout(() => inputsRef.current[index - 1].focus(), 0);
-      }if(!code[index] && index!=0){
+      }if(!code[index] && index!==0){
         setTimeout(() => inputsRef.current[index - 1].focus(), 0);
 
       }
@@ -67,6 +66,8 @@ function VerifyPage({setIsVerified, isVerified}) {
         localStorage.setItem('isVerified', 'true');
         console.log(isVerified,"verr")
           window.location.href = '/success';
+      }else{
+        setError(response.data.error)
       }
    
   };
@@ -117,11 +118,7 @@ function VerifyPage({setIsVerified, isVerified}) {
             ))}
           </div>
           <button type="submit" className="submit-button">Submit</button>
-          {success &&<>
-          <div className="checkmark"></div><br/>
-              <div>Verification Success</div>
-              </>
-          }
+         
         </form>
         {error && <div className="error-message">{error}</div>}
       </div>
