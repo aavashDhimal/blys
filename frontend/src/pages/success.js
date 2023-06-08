@@ -8,7 +8,7 @@ function SuccessPage (){
         if (localStorage.getItem('isVerified') !== 'true') {
             navigate('/');
         }
-    }, []);
+    }, [navigate]);
     
 
     return(

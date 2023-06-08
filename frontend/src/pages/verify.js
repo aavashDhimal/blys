@@ -61,7 +61,7 @@ function VerifyPage({ isVerified}) {
     event.preventDefault();
     const verificationCode = code.join('');
     console.log(isVerified,"verified");
-      const response = await axios.post('http://localhost:3030/verify', { code: verificationCode });
+      const response = await axios.post('https://test-verification-blys.onrender.com/verify', { code: verificationCode });
       if (response.data.message === 'Success') {
         localStorage.setItem('isVerified', 'true');
         console.log(isVerified,"verr")
