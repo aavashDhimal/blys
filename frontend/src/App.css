@@ -1,0 +1,125 @@
+
+.App {
+  /* background-color: #fff; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* 100% of the viewport height */
+}
+
+h1 {
+  color: #100249;
+  justify-content: center;
+  margin-top: 20px;
+}
+.verification-code-form {
+  border: 6px solid #100249;;
+  box-shadow: 10px black;
+  border-radius: 10px;
+  /* background-color: rgb(0, 0, 0); */
+  padding: 45px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-boxes {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 20px; /* adjust as needed */
+}
+
+input {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border: 2px solid #000000;
+  text-align: center;
+  font-size: 18px;
+  transition: border-color 0.3s;
+}
+
+.verification-code-form input:focus {
+  border-color: #001b37;
+  outline: none;
+}
+
+.valid-input input {
+  color: rgb(0, 0, 0);
+  margin: 0 6px;
+  border: 2px solid #000000;
+}
+
+.invalid-input input {
+  border: 2px solid #D0342C;
+  margin: 0 6px !important;
+  color: #ff0019;
+}
+
+.submit-button {
+  background-color: #100249;
+  font-size: 20px;
+  color: #fff;
+  border: none;
+  margin: 40px 20px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.error-message {
+  color: #dc3545;
+  margin-top: 10px;
+}
+
+.checkmark {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.checkmark::after {
+  content: '';
+  position: absolute;
+  width: 10px; 
+  height: 36px;
+  border: solid #fff;
+  border-width: 0 8px 8px 0;
+  transform: rotate(45deg);
+  background-color: transparent;
+  margin-bottom: 10px;
+
+}
+
+
+.circle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background-color: #100249;
+  box-shadow: 0px 0px 10px #888;
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+
+.message {
+  margin-top: 20px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+
+.go-back{
+  color: white;
+}
