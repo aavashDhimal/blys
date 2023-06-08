@@ -9,13 +9,16 @@ function VerifyPage({ isVerified}) {
   const [invalid, setInvalid] = useState(new Array(6).fill(false));
   const inputsRef = useRef([]);
   const [error, setError] = useState('');
-  const [isCodeValdi,setIsValid] = useState(true)
+  const [isCodeValid,setIsValid] = useState(true)
   localStorage.setItem('isVerified', 'false');
 
   useEffect(()=>{
     if(invalid.some(item => item === true)) {
       setIsValid(false);
-      setError("code has ivalid value")
+      setError("code has Invalid value")
+    }else{
+      setIsValid(true);
+      
     }
   },[invalid]);
   const handleChange = (e, index) => {
@@ -24,6 +27,14 @@ function VerifyPage({ isVerified}) {
       let newInvalid = [...invalid];
       
       newInvalid[index] = true;
+      setInvalid(newInvalid);
+      console.log(invalid[index])
+      console.log(data, index, "not a num")
+    }else{
+      let newInvalid = [...invalid];
+      
+      newInvalid[index] = false;
+      setError('')
       setInvalid(newInvalid);
       console.log(invalid[index])
       console.log(data, index, "not a num")
@@ -64,8 +75,9 @@ function VerifyPage({ isVerified}) {
   };
 
   const handleSubmit = async (event) => {
+    try{
     event.preventDefault();
-    if(isCodeValdi === true){
+    if(isCodeValid === true){
     const verificationCode = code.join('');
     console.log(isVerified,"verified");
       const response = await axios.post('https://test-verification-blys.onrender.com/verify', { code: verificationCode });
@@ -74,9 +86,14 @@ function VerifyPage({ isVerified}) {
         console.log(isVerified,"verr")
           window.location.href = '/success';
       }else{
+
         setError(response.data.error)
+        console.log(error,"error")
       }
     }
+  }catch(err){
+    setError(err.response.data.error)
+  }
   };
 
   console.log("console")
@@ -124,7 +141,7 @@ function VerifyPage({ isVerified}) {
               </div>)
             ))}
           </div>
-          <button type="submit" className="submit-button">Submit</button>
+          <button type="submit" className="submit-button" disabled= {!isCodeValid}>Submit</button>
          
         </form>
         {error && <div className="error-message">{error}</div>}
