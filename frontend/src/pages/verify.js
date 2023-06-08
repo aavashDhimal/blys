@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef,useEffect } from "react";
 import axios from "axios";
 import '../App.css';
 
@@ -9,9 +9,15 @@ function VerifyPage({ isVerified}) {
   const [invalid, setInvalid] = useState(new Array(6).fill(false));
   const inputsRef = useRef([]);
   const [error, setError] = useState('');
-
+  const [isCodeValdi,setIsValid] = useState(true)
   localStorage.setItem('isVerified', 'false');
 
+  useEffect(()=>{
+    if(invalid.some(item => item === true)) {
+      setIsValid(false);
+      setError("code has ivalid value")
+    }
+  },[invalid]);
   const handleChange = (e, index) => {
     let data = e.target.value
     if (isNaN(data)) {
@@ -59,6 +65,7 @@ function VerifyPage({ isVerified}) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if(isCodeValdi === true){
     const verificationCode = code.join('');
     console.log(isVerified,"verified");
       const response = await axios.post('https://test-verification-blys.onrender.com/verify', { code: verificationCode });
@@ -69,7 +76,7 @@ function VerifyPage({ isVerified}) {
       }else{
         setError(response.data.error)
       }
-   
+    }
   };
 
   console.log("console")
