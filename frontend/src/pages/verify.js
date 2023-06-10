@@ -9,7 +9,8 @@ function VerifyPage({ isVerified}) {
   const [invalid, setInvalid] = useState(new Array(6).fill(false));
   const inputsRef = useRef([]);
   const [error, setError] = useState('');
-  const [isCodeValid,setIsValid] = useState(true)
+  const [isCodeValid,setIsValid] = useState(true);
+  const [isFetching,setIsFetching]= useState(false);
   localStorage.setItem('isVerified', 'false');
 
   useEffect(()=>{
@@ -78,6 +79,7 @@ function VerifyPage({ isVerified}) {
     try{
     event.preventDefault();
     if(isCodeValid === true){
+      setIsFetching(true)
     const verificationCode = code.join('');
     console.log(isVerified,"verified");
       const response = await axios.post('https://test-verification-blys.onrender.com/verify', { code: verificationCode });
@@ -85,13 +87,15 @@ function VerifyPage({ isVerified}) {
         localStorage.setItem('isVerified', 'true');
         console.log(isVerified,"verr")
           window.location.href = '/success';
-      }else{
 
+      }else{
+        setIsFetching(false)
         setError( "Verification Error :" + response.data.error)
         console.log(error,"error")
       }
     }
   }catch(err){
+    setIsFetching(false)
     setError("Verification Error :" + err.response.data.error)
   }
   };
@@ -146,6 +150,8 @@ function VerifyPage({ isVerified}) {
         </form>
         {error && <div className="error-message">{error}</div>}
       </div>
+            {isFetching ? <div className="loader"></div> : ""}
+
     </div>
   );
 }
